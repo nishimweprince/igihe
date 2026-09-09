@@ -33,6 +33,10 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   robots: { index: false, follow: true },
+  icons: {
+    icon: [{ url: "/favicon.webp", type: "image/webp" }],
+    apple: [{ url: "/favicon.webp", type: "image/webp" }],
+  },
 };
 
 export default function RootLayout({
