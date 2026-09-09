@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { Article, Summary } from "./types";
+import type { Article, General, Summary } from "./types";
 
 const NAMED_ENTITIES: Record<string, string> = {
   amp: "&",
@@ -38,6 +38,24 @@ function decodeArticle(article: Article): Article {
 
 let articlesCache: Article[] | null = null;
 let summariesCache: Summary[] | null = null;
+let generalCache: General | null = null;
+
+export function getGeneral(): General {
+  if (generalCache === null) {
+    try {
+      const raw = JSON.parse(
+        readFileSync(join(process.cwd(), "data", "general.json"), "utf8")
+      ) as General;
+      generalCache = {
+        ...raw,
+        questions: raw.questions.map(decodeEntities),
+      };
+    } catch {
+      generalCache = { questions: [], generatedAt: "" };
+    }
+  }
+  return generalCache;
+}
 
 export function getArticles(): Article[] {
   if (articlesCache === null) {
@@ -58,6 +76,7 @@ export function getSummaries(): Map<string, Summary> {
       summariesCache = raw.map((s) => ({
         ...s,
         bullets: s.bullets.map(decodeEntities),
+        questions: s.questions?.map(decodeEntities),
       }));
     } catch {
       summariesCache = [];

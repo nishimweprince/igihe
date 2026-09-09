@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import { config as faConfig } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+faConfig.autoAddCss = false;
 import { AssistantProvider } from "@/components/ai/assistant-provider";
 import { Assistant } from "@/components/ai/assistant";
 

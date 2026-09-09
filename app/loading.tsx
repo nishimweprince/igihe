@@ -26,7 +26,7 @@ export default function Loading() {
       <main className="mx-auto max-w-page px-4">
         <div className="grid grid-cols-1 gap-x-6 gap-y-8 py-6 lg:grid-cols-12 lg:gap-y-0">
           <div className="lg:order-2 lg:col-span-6 lg:border-x lg:border-rule lg:px-6">
-            <div className="section-rule pt-2">
+            <div className="pt-2">
               <Skeleton className="h-3 w-28" />
             </div>
             <Skeleton className="mt-4 aspect-[16/9] w-full" />
@@ -37,7 +37,7 @@ export default function Loading() {
           </div>
 
           <div className="lg:order-1 lg:col-span-3 lg:pr-6">
-            <div className="section-rule pt-2">
+            <div className="pt-2">
               <Skeleton className="h-3 w-20" />
             </div>
             <div className="mt-4 space-y-5">
@@ -48,7 +48,7 @@ export default function Loading() {
           </div>
 
           <div className="lg:order-3 lg:col-span-3 lg:pl-6">
-            <div className="section-rule pt-2">
+            <div className="pt-2">
               <Skeleton className="h-3 w-28" />
             </div>
             <div className="mt-4 space-y-5">
@@ -59,7 +59,7 @@ export default function Loading() {
           </div>
         </div>
 
-        <div className="section-rule pt-2">
+        <div className="pt-2">
           <Skeleton className="h-3 w-32" />
         </div>
         <div className="mt-4 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">

@@ -16,4 +16,10 @@ export interface Summary {
   articleId: string;
   bullets: string[];
   language: string;
+  questions?: string[];
+}
+
+export interface General {
+  questions: string[];
+  generatedAt: string;
 }

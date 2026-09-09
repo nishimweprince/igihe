@@ -92,11 +92,6 @@
     color: #444444;
   }
 
-  /* The heavy rule that opens a section — the loudest line on the page. */
-  .section-rule {
-    border-top: 3px solid #121212;
-  }
-
   /* Column hairlines. Applied per breakpoint by the grid that owns them. */
   .col-rule {
     border-left: 1px solid var(--rule);

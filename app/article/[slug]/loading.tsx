@@ -34,7 +34,7 @@ export default function Loading() {
           </div>
 
           <div className="mt-10 lg:col-span-4 lg:mt-0 lg:border-l lg:border-rule lg:pl-8">
-            <div className="section-rule pt-2">
+            <div className="pt-2">
               <Skeleton className="h-3 w-24" />
             </div>
             <div className="mt-4 space-y-5">

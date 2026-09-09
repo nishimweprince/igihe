@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-/** The heavy rule that opens a section — the loudest line on the page. */
+/** Section openers breathe instead of shouting — title and air, no rule. */
 export function SectionHeader({
   title,
   href,
@@ -14,7 +14,7 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "section-rule mb-4 flex items-baseline justify-between gap-4 pt-2",
+        "mb-4 flex items-baseline justify-between gap-4",
         className
       )}
     >

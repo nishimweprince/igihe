@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SectionHeader } from "@/components/section-header";
@@ -96,6 +98,15 @@ export default async function ArticlePage({
       <SelectionToolbar />
 
       <main id="main" className="mx-auto max-w-page px-4">
+        <nav aria-label="Subira" className="pt-5">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 p-1 px-3 bg-rule/70 text-ink/90 text-[13px] font-medium rounded-md hover:bg-rule hover:text-ink hover:bg-rule/90"
+          >
+            <FontAwesomeIcon icon={faChevronLeft} aria-hidden />
+            Subira ku nkuru zose
+          </Link>
+        </nav>
         <div className="grid grid-cols-1 gap-x-8 py-6 lg:grid-cols-12">
           <article className="lg:col-span-8 lg:pr-8">
             <p className="kicker text-brand-ink">
@@ -139,7 +150,7 @@ export default async function ArticlePage({
             {summary && summary.bullets.length > 0 && (
               <section
                 aria-label="Incamake ya AI"
-                className="section-rule mt-8 pt-3"
+                className="mt-8"
               >
                 <p className="kicker text-meta">Mu magambo make</p>
                 <ul className="mt-3 list-disc space-y-2 pl-4 marker:text-rule">

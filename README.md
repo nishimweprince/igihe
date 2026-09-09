@@ -16,6 +16,7 @@ and links the original article, driving engagement and time-on-site.
 ```bash
 npm run ingest     # fetch latest Igihe articles (RSS + article pages) -> data/articles.json
 npm run summarize  # 3-bullet Kinyarwanda-first summaries -> data/summaries.json (needs OPENAI_API_KEY)
+npm run questions  # 2 AI flash questions per article + 2 broad ones -> summaries.json / data/general.json
 npm run dev        # local dev server
 npm run build      # production build
 npm run lint       # typecheck (tsc --noEmit)

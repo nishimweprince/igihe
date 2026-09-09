@@ -2,16 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { RotateCcw, Send, X } from "lucide-react";
+import { RotateCcw, Send, Sparkles, X } from "lucide-react";
 import { Input } from "../ui/input";
 import { Skeleton } from "../ui/skeleton";
 import { useAssistant, type Message, type Source } from "./assistant-provider";
 import { cn } from "@/lib/utils";
 
-const STARTERS = [
-  "Ni izihe nkuru z'ingenzi z'uyu munsi?",
-  "Iran na Amerika bageze he?",
-];
+interface Starters {
+  scoped: string[];
+  broad: string[];
+}
 
 /** Renders "…peteroli [1]" with the citation as a footnote link. */
 function withCitations(content: string, sources?: Source[]) {
@@ -97,12 +97,33 @@ export function Assistant() {
     setScopedToArticle,
   } = useAssistant();
   const [value, setValue] = useState("");
+  const [starters, setStarters] = useState<Starters | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
   }, [open]);
+
+  // Suggestion chips are AI-generated at seed time (scripts/questions.mjs):
+  // 2 flash questions for the article on screen, 2 broad ones otherwise.
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    const params = article ? `?articleId=${encodeURIComponent(article.articleId)}` : "";
+    fetch(`/api/starters${params}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!cancelled && data) setStarters(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [open, article]);
+
+  const chips =
+    scopedToArticle && article ? starters?.scoped ?? [] : starters?.broad ?? [];
 
   useEffect(() => {
     const el = listRef.current;
@@ -123,9 +144,10 @@ export function Assistant() {
         <button
           type="button"
           onClick={openAssistant}
-          className="kicker fixed bottom-4 right-4 z-40 h-12 bg-ink px-4 text-white transition-colors hover:bg-brand-ink sm:bottom-6 sm:right-6"
+          className="fixed bottom-4 right-4 z-40 flex h-12 items-center gap-2 bg-ink px-4 text-white transition-colors hover:bg-brand-ink sm:bottom-6 sm:right-6"
         >
-          Baza IGIHE
+          <Sparkles className="h-4 w-4" aria-hidden />
+          <span className="kicker">Baza IGIHE</span>
         </button>
       )}
 
@@ -148,7 +170,11 @@ export function Assistant() {
           )}
         >
           <header className="flex h-11 shrink-0 items-center border-b border-ink bg-ink px-3 text-white">
-            <span className="kicker">Baza IGIHE</span>
+            <Sparkles className="h-4 w-4" aria-hidden />
+            <span className="kicker ml-2">Baza IGIHE</span>
+            <span className="ml-2 border border-white/40 px-1.5 py-0.5 text-[10px] font-bold text-white">
+              AI
+            </span>
             <span className="ml-auto flex items-center gap-1">
               {messages.length > 0 && (
                 <button
@@ -218,7 +244,7 @@ export function Assistant() {
                   gikomokaho.
                 </p>
                 <ul className="mt-3 space-y-2">
-                  {STARTERS.map((q) => (
+                  {chips.map((q) => (
                     <li key={q}>
                       <button
                         type="button"
